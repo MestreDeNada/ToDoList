@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ToDoList</string>
+
+    //Adding string array for the spinner categories
+    <string-array name="category_array">
+        <item>General</item>
+        <item>Home</item>
+        <item>Auto</item>
+        <item>School</item>
+    </string-array>
+
 </resources>

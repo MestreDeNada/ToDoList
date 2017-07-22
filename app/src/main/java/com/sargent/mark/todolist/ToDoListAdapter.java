@@ -46,7 +46,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHo
     }
 
     public interface ItemClickListener {
-        void onItemClick(int pos, String description, String duedate, long id);
+        void onItemClick(int pos, String description, String category, String duedate, long id);
     }
 
     public ToDoListAdapter(Cursor cursor, ItemClickListener listener) {
@@ -65,15 +65,18 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHo
 
     class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView descr;
+        TextView cat;
         TextView due;
         String duedate;
         String description;
+        String category;
         long id;
 
 
         ItemHolder(View view) {
             super(view);
             descr = (TextView) view.findViewById(R.id.description);
+            cat = (TextView) view.findViewById(R.id.category);
             due = (TextView) view.findViewById(R.id.dueDate);
             view.setOnClickListener(this);
         }
@@ -85,7 +88,9 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHo
 
             duedate = cursor.getString(cursor.getColumnIndex(Contract.TABLE_TODO.COLUMN_NAME_DUE_DATE));
             description = cursor.getString(cursor.getColumnIndex(Contract.TABLE_TODO.COLUMN_NAME_DESCRIPTION));
+            category = cursor.getString(cursor.getColumnIndex(Contract.TABLE_TODO.COLUMN_NAME_CATEGORY));
             descr.setText(description);
+            cat.setText(category);
             due.setText(duedate);
             holder.itemView.setTag(id);
         }
@@ -93,7 +98,7 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ItemHo
         @Override
         public void onClick(View v) {
             int pos = getAdapterPosition();
-            listener.onItemClick(pos, description, duedate, id);
+            listener.onItemClick(pos, description, category, duedate, id);
         }
     }
 
